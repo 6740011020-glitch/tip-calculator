@@ -1,65 +1,116 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 
 export default function Home() {
+  const [bill, setBill] = useState(0);
+  const [tip, setTip] = useState(0);
+  const [tipAmount, setTipAmount] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const calculateTip1 = () => {
+    const calculatedTip = (bill * tip) / 100;
+    const calculatedTotal = bill + calculatedTip;
+
+    setTipAmount(calculatedTip);
+    setTotal(calculatedTotal);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="min-h-screen bg-gray-50 p-10 flex justify-center items-start">
+      
+      {/* กรอบการ์ดสีขาว เรียบๆ ตรงกลาง */}
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-4xl border border-gray-100">
+        
+        <h1 className="text-3xl font-bold text-blue-600 mb-8">
+          Tip Calculator 💰
+        </h1>
+
+        <div className="flex gap-10">
+          
+          {/* ============ 👈 ฝั่งซ้าย (Input) ============ */}
+          <div className="w-1/2 flex flex-col gap-6">
+            
+            {/* 1. ช่องกรอกเงิน */}
+            <div>
+              <label className="block text-lg font-bold mb-2 text-gray-700">
+                1. ใส่จำนวนเงิน (Bill)
+              </label>
+              <input
+                type="number"
+                placeholder="กรอกจำนวนเงิน"
+                className="border-2 border-gray-300 p-3 w-full text-xl rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                value={bill === 0 ? "" : bill}
+                onChange={(e) => setBill(Number(e.target.value))}
+              />
+            </div>
+
+            {/* 2. ปุ่มเลือก Tip (เหลือแค่ 5% กับ 10%) */}
+            <div>
+              <label className="block text-lg font-bold mb-2 text-gray-700">
+                2. เลือก % Tip <span className="text-blue-500">({tip}%)</span>
+              </label>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setTip(5)}
+                  className={`flex-1 py-3 text-lg font-bold rounded-lg transition-colors ${
+                    tip === 5
+                      ? "bg-blue-600 text-white shadow-md" 
+                      : "bg-blue-100 text-blue-600 hover:bg-blue-200" 
+                  }`}
+                >
+                  5%
+                </button>
+                <button
+                  onClick={() => setTip(10)}
+                  className={`flex-1 py-3 text-lg font-bold rounded-lg transition-colors ${
+                    tip === 10
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                  }`}
+                >
+                  10%
+                </button>
+              </div>
+            </div>
+
+          
+            <button
+              onClick={calculateTip1}
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-lg text-xl shadow-sm transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Calculate
+            </button>
+          </div>
+
+         
+          <div className="w-1/2 bg-gray-100 p-6 rounded-xl border border-gray-200 flex flex-col justify-center gap-6">
+      
+            <div className="flex justify-between items-center">
+              <span className="text-xl font-bold text-gray-600">Tip Total</span>
+              <div className="bg-white px-6 py-3 rounded-lg border border-gray-300 min-w-[120px] text-right">
+                <span className="text-2xl font-bold text-blue-600">
+                  {tipAmount.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+        
+            <hr className="border-gray-300" />
+
+          
+            <div className="flex justify-between items-center">
+              <span className="text-xl font-bold text-gray-600">Bill Total</span>
+              <div className="bg-white px-6 py-3 rounded-lg border border-gray-300 min-w-[120px] text-right">
+                <span className="text-2xl font-bold text-green-600">
+                  {total.toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
