@@ -28,7 +28,7 @@ export default function Home() {
         <div className="flex gap-10">
           
          
-         
+
           <div className="w-1/2 flex flex-col gap-6">
             
             
@@ -39,7 +39,7 @@ export default function Home() {
               <input
                 type="number"
                 placeholder="กรอกจำนวนเงิน"
-                className="border-2 border-gray-300 p-3 w-full text-xl rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+                className="text-black border-2 border-gray-300 p-3 w-full text-xl rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
                 value={bill === 0 ? "" : bill}
                 onChange={(e) => setBill(Number(e.target.value))}
               />
