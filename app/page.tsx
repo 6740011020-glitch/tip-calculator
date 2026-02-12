@@ -27,10 +27,11 @@ export default function Home() {
 
         <div className="flex gap-10">
           
-          {/* ============ 👈 ฝั่งซ้าย (Input) ============ */}
+         
+         
           <div className="w-1/2 flex flex-col gap-6">
             
-            {/* 1. ช่องกรอกเงิน */}
+            
             <div>
               <label className="block text-lg font-bold mb-2 text-gray-700">
                 1. ใส่จำนวนเงิน (Bill)
@@ -44,7 +45,7 @@ export default function Home() {
               />
             </div>
 
-            {/* 2. ปุ่มเลือก Tip (เหลือแค่ 5% กับ 10%) */}
+           
             <div>
               <label className="block text-lg font-bold mb-2 text-gray-700">
                 2. เลือก % Tip <span className="text-blue-500">({tip}%)</span>
